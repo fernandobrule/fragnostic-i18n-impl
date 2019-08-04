@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export TEST_FRAGNOSTIC_WEB_I18N_BASE_DIR=/Users/fernandobrule/Clones/fragnostic/fragnostic-code/fragnostic-i18n/fragnostic-i18n/src/test/resources/i18n/web
+
+export TEST_FRAGNOSTIC_SERVICE_I18N_BASE_DIR=/Users/fernandobrule/Clones/fragnostic/fragnostic-code/fragnostic-i18n/fragnostic-i18n/src/test/resources/i18n/service
+
+./sbt -v -213
