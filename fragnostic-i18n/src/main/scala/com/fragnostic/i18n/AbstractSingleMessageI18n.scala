@@ -4,10 +4,12 @@ import java.io.File
 import java.net.{ URL, URLClassLoader }
 import java.util.{ Locale, MissingResourceException, ResourceBundle }
 
+import com.fragnostic.i18n.api.MessageI18n
 import com.fragnostic.conf.service.CakeServiceConf
+import com.fragnostic.support.StringSupport
 import org.slf4j.{ Logger, LoggerFactory }
 
-trait AbstractSingleMessageI18n extends MessageI18n {
+trait AbstractSingleMessageI18n extends MessageI18n with StringSupport {
 
   private def logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
