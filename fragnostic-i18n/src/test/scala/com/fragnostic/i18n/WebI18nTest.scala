@@ -6,9 +6,9 @@ import org.scalatest.{ FunSpec, Matchers }
 
 class WebI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {
 
-  override def baseName: String = "com.fragnostic.i18n.fragnostic-web-mensajes"
-
   override def baseDir: String = "TEST_FRAGNOSTIC_WEB_I18N_BASE_DIR"
+
+  override def baseName: String = "TEST_FRAGNOSTIC_WEB_I18N_BASE_NAME"
 
   describe("Web I18n Test") {
 

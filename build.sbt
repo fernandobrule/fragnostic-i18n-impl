@@ -78,7 +78,6 @@ lazy val fragnosticI18n = Project(
       logbackClassic,
       slf4jApi,
       scalatest,
-      fragnosticConf,
       fragnosticI18nApi,
       fragnosticSupport
     ),
