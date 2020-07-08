@@ -2,15 +2,11 @@ package com.fragnostic.i18n
 
 import java.util.Locale
 
-import org.scalatest.{ FunSpec, Matchers }
+import com.fragnostic.i18n.support.SingleMessageI18n
 
-class ServiceI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {
+class SingleMessageTest extends SingleMessageI18n {
 
-  override def baseName: String = "com.fragnostic.i18n.fragnostic-service-mensajes"
-
-  override def baseDir: String = "TEST_FRAGNOSTIC_SERVICE_I18N_BASE_DIR"
-
-  describe("Service I18n Test") {
+  describe("Single Message Test") {
 
     it("Can Get String en_US") {
 
