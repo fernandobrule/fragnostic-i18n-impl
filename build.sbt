@@ -1,4 +1,6 @@
-import com.typesafe.sbt.pgp.PgpKeys
+import com.jsuereth.sbtpgp.PgpKeys
+import scala.xml._
+import java.net.URL
 import Dependencies._
 
 val unusedOptions = Def.setting(
@@ -10,9 +12,11 @@ val unusedOptions = Def.setting(
   }
 )
 
-lazy val fragnosticSettings = Seq(
+lazy val frgI18nSettings = Seq(
   organization := "com.fragnostic",
-  crossScalaVersions := Seq("2.12.8", "2.11.12", "2.13.0"),
+  fork in Test := true,
+  baseDirectory in Test := file("."),
+  crossScalaVersions := Seq("2.12.11", "2.11.12", "2.13.3"),
   scalaVersion := crossScalaVersions.value.head,
   scalacOptions ++= unusedOptions.value,
   scalacOptions ++= Seq(
@@ -35,25 +39,43 @@ lazy val fragnosticSettings = Seq(
     "org.scala-lang" % "scala-reflect"  % scalaVersion.value,
     "org.scala-lang" % "scala-compiler" % scalaVersion.value
   )
-) ++ Seq(Compile, Test).flatMap(c =>
+) ++ mavenCentralFrouFrou ++ Seq(Compile, Test).flatMap(c =>
   scalacOptions in (c, console) --= unusedOptions.value
 )
 
-lazy val fragnosticProject = Project(
+lazy val frgI18nProject = Project(
   id = "fragnostic-i18n-project",
   base = file(".")).settings(
-    fragnosticSettings ++ Seq(
-    name := "fragnostic-i18n",
+    frgI18nSettings ++ Seq(
+    name := "fragnostic i18n",
     artifacts := Classpaths.artifactDefs(Seq(packageDoc in Compile, makePom in Compile)).value,
     packagedArtifacts := Classpaths.packaged(Seq(packageDoc in Compile, makePom in Compile)).value,
-    description := "fragnostic-i18n",
+    description := "fragnostic i18n",
     shellPrompt := { state =>
       s"sbt:${Project.extract(state).currentProject.id}" + Def.withColor("> ", Option(scala.Console.CYAN))
     }
+  ) ++ Defaults.packageTaskSettings(
+    packageDoc in Compile, (unidoc in Compile).map(_.flatMap(Path.allSubpaths))
   )).aggregate(
-    fragnosticI18n
-  ).enablePlugins()
- 
+    frgI18n
+  ).enablePlugins(ScalaUnidocPlugin)
+
+lazy val frgI18n = Project(
+  id = "fragnostic-i18n",
+  base = file("fragnostic-i18n")).settings(frgI18nSettings ++ Seq(
+    libraryDependencies ++= Seq(
+      logbackClassic,
+      slf4jApi,
+      scalatest,
+      fragnosticI18nApi,
+      fragnosticSupport
+    ),
+    description := "fragnostic i18n"
+  )
+) dependsOn(
+  //
+)
+
 lazy val manifestSetting = packageOptions += {
   Package.ManifestAttributes(
     "Created-By" -> "Simple Build Tool",
@@ -69,19 +91,19 @@ lazy val manifestSetting = packageOptions += {
   )
 }
 
-lazy val doNotPublish = Seq(publish := {}, publishLocal := {}, PgpKeys.publishSigned := {}, PgpKeys.publishLocalSigned := {})
-
-lazy val fragnosticI18n = Project(
-  id = "fragnostic-i18n",
-  base = file("fragnostic-i18n")).settings(fragnosticSettings ++ Seq(
-    libraryDependencies ++= Seq(
-      logbackClassic,
-      slf4jApi,
-      scalatest,
-      fragnosticI18nApi,
-      fragnosticSupport
-    ),
-    description := "fragnostic-i18n"
+// Things we care about primarily because Maven Central demands them
+lazy val mavenCentralFrouFrou = Seq(
+  homepage := Some(new URL("http://www.notyet.com.br")),
+  startYear := Some(2019),
+  pomExtra := pomExtra.value ++ Group(
+    <developers>
+      <developer>
+        <id>fbrule</id>
+        <name>Fernando Brûlé</name>
+        <url>https://github.com/fernandobrule</url>
+      </developer>
+    </developers>
   )
-) dependsOn(
 )
+
+lazy val doNotPublish = Seq(publish := {}, publishLocal := {}, PgpKeys.publishSigned := {}, PgpKeys.publishLocalSigned := {})
