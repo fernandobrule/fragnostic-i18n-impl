@@ -79,10 +79,10 @@ lazy val frgI18nImplProject = Project(
   id = "fragnostic-i18n-impl-project",
   base = file(".")).settings(
     frgI18nImplSettings ++ Seq(
-    name := "fragnostic i18n project",
+    name := "fragnostic i18n impl project",
     artifacts := Classpaths.artifactDefs(Seq(packageDoc in Compile, makePom in Compile)).value,
     packagedArtifacts := Classpaths.packaged(Seq(packageDoc in Compile, makePom in Compile)).value,
-    description := "A Fragnostic I18N",
+    description := "A Fragnostic I18N Impl",
     shellPrompt := { state =>
       s"sbt:${Project.extract(state).currentProject.id}" + Def.withColor("> ", Option(scala.Console.CYAN))
     }
@@ -102,7 +102,7 @@ lazy val frgI18nImpl = Project(
       fragnosticI18nApi,
       fragnosticSupport
     ),
-    description := "fragnostic i18n"
+    description := "fragnostic i18n impl"
   )
 ) dependsOn(
   //
