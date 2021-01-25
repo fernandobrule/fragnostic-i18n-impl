@@ -12,7 +12,7 @@ val unusedOptions = Def.setting(
   }
 )
 
-lazy val frgI18nSettings = Seq(
+lazy val frgI18nImplSettings = Seq(
   organization := "com.fragnostic",
   fork in Test := true,
   baseDirectory in Test := file("."),
@@ -75,10 +75,10 @@ lazy val mavenCentralFrouFrou = Seq(
 
 lazy val doNotPublish = Seq(publish := {}, publishLocal := {}, PgpKeys.publishSigned := {}, PgpKeys.publishLocalSigned := {})
 
-lazy val frgI18nProject = Project(
-  id = "fragnostic-i18n-project",
+lazy val frgI18nImplProject = Project(
+  id = "fragnostic-i18n-impl-project",
   base = file(".")).settings(
-    frgI18nSettings ++ Seq(
+    frgI18nImplSettings ++ Seq(
     name := "fragnostic i18n project",
     artifacts := Classpaths.artifactDefs(Seq(packageDoc in Compile, makePom in Compile)).value,
     packagedArtifacts := Classpaths.packaged(Seq(packageDoc in Compile, makePom in Compile)).value,
@@ -89,12 +89,12 @@ lazy val frgI18nProject = Project(
   ) ++ Defaults.packageTaskSettings(
     packageDoc in Compile, (unidoc in Compile).map(_.flatMap(Path.allSubpaths))
   )).aggregate(
-    frgI18n
+    frgI18nImpl
   ).enablePlugins(ScalaUnidocPlugin)
 
-lazy val frgI18n = Project(
-  id = "fragnostic-i18n",
-  base = file("fragnostic-i18n")).settings(frgI18nSettings ++ Seq(
+lazy val frgI18nImpl = Project(
+  id = "fragnostic-i18n-impl",
+  base = file("fragnostic-i18n-impl")).settings(frgI18nImplSettings ++ Seq(
     libraryDependencies ++= Seq(
       logbackClassic,
       slf4jApi,

@@ -1,12 +1,12 @@
-package com.fragnostic.i18n
-
-import java.io.File
-import java.net.{ URL, URLClassLoader }
-import java.util.{ Locale, MissingResourceException, ResourceBundle }
+package com.fragnostic.i18n.impl
 
 import com.fragnostic.i18n.api.ResourceI18n
 import com.fragnostic.support.StringSupport
 import org.slf4j.{ Logger, LoggerFactory }
+
+import java.io.File
+import java.net.{ URL, URLClassLoader }
+import java.util.{ Locale, MissingResourceException, ResourceBundle }
 
 trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
 
