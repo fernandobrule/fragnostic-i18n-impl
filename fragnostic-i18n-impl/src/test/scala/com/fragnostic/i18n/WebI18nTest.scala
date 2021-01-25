@@ -1,7 +1,8 @@
 package com.fragnostic.i18n
 
-import java.util.Locale
+import com.fragnostic.i18n.impl.AbstractSingleMessageI18n
 
+import java.util.Locale
 import org.scalatest.{ FunSpec, Matchers }
 
 class WebI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {

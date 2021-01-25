@@ -1,9 +1,9 @@
-package com.fragnostic.i18n
-
-import java.util.{ Locale, ResourceBundle }
+package com.fragnostic.i18n.impl
 
 import com.fragnostic.i18n.api.ResourceI18n
 import com.fragnostic.support.StringSupport
+
+import java.util.{ Locale, ResourceBundle }
 
 /**
  * Created by Fernando Brule on 30-06-2015 22:23:00.
