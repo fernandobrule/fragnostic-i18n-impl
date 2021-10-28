@@ -43,12 +43,6 @@ trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
         error => None,
         baseName => try {
 
-          if (logger.isInfoEnabled) {
-            logger.info(s"getResourceBundle() - localeOpt[$localeOpt]")
-            logger.info(s"getResourceBundle() - baseName[$baseName]")
-            logger.info(s"getResourceBundle() - baseDir[$baseDir]")
-          }
-
           val file: File = new File(baseDir)
           val urls: Array[URL] = Array(file.toURI.toURL)
           val classLoader: ClassLoader = new URLClassLoader(urls)
