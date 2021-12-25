@@ -39,7 +39,7 @@ lazy val frgI18nImplSettings = Seq(
     "org.scala-lang" % "scala-reflect"  % scalaVersion.value,
     "org.scala-lang" % "scala-compiler" % scalaVersion.value
   )
-) ++ mavenCentralFrouFrou ++ Seq(Compile, Test).flatMap(c =>
+) ++ Seq(Compile, Test).flatMap(c =>
   scalacOptions in (c, console) --= unusedOptions.value
 )
 
@@ -57,21 +57,6 @@ lazy val manifestSetting = packageOptions += {
     "Implementation-Vendor" -> organization.value
   )
 }
-
-// Things we care about primarily because Maven Central demands them
-lazy val mavenCentralFrouFrou = Seq(
-  homepage := Some(new URL("http://www.fragnostic.com.br")),
-  startYear := Some(2020),
-  pomExtra := pomExtra.value ++ Group(
-    <developers>
-      <developer>
-        <id>fbrule</id>
-        <name>Fernando Brûlé</name>
-        <url>https://github.com/fernandobrule</url>
-      </developer>
-    </developers>
-  )
-)
 
 lazy val doNotPublish = Seq(publish := {}, publishLocal := {}, PgpKeys.publishSigned := {}, PgpKeys.publishLocalSigned := {})
 
@@ -98,7 +83,7 @@ lazy val frgI18nImpl = Project(
     libraryDependencies ++= Seq(
       logbackClassic,
       slf4jApi,
-      scalatest,
+      scalatestFunSpec,
       fragnosticI18nApi,
       fragnosticSupport
     ),
