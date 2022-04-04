@@ -1,11 +1,11 @@
 package com.fragnostic.i18n
 
 import com.fragnostic.i18n.impl.AbstractSingleMessageI18n
+import org.scalatest.funspec._
 
 import java.util.Locale
-import org.scalatest.{ FunSpec, Matchers }
 
-class WebI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {
+class WebI18nTest extends AnyFunSpecLike with AbstractSingleMessageI18n {
 
   override def baseDir: String = "TEST_FRAGNOSTIC_WEB_I18N_BASE_DIR"
 
@@ -23,7 +23,7 @@ class WebI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {
         .setRegion(region)
         .build()
 
-      getString(locale, "web.hello") should be("hello")
+      assertResult(getString(locale, "web.hello"))("hello")
 
     }
 
@@ -37,7 +37,7 @@ class WebI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {
         .setRegion(region)
         .build()
 
-      getString(locale, "web.hello") should be("hola")
+      assertResult(getString(locale, "web.hello"))("hola")
     }
 
     it("Can Get String pt_BR") {
@@ -50,7 +50,7 @@ class WebI18nTest extends FunSpec with Matchers with AbstractSingleMessageI18n {
         .setRegion(region)
         .build()
 
-      getString(locale, "web.hello") should be("oi")
+      assertResult(getString(locale, "web.hello"))("oi")
 
     }
 
