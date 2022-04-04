@@ -8,7 +8,7 @@ class SingleMessageLocaleNullTest extends SingleMessageI18n {
 
     it("Can Get String With Locale Null") {
 
-      getString(locale = null, key = "service.hello") should be("oi")
+      assertResult(getString(locale = null, key = "service.hello"))("oi")
 
     }
 

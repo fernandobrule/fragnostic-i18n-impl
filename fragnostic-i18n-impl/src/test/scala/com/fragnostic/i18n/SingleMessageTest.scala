@@ -1,8 +1,8 @@
 package com.fragnostic.i18n
 
-import java.util.Locale
-
 import com.fragnostic.i18n.support.SingleMessageI18n
+
+import java.util.Locale
 
 class SingleMessageTest extends SingleMessageI18n {
 
@@ -18,7 +18,7 @@ class SingleMessageTest extends SingleMessageI18n {
         .setRegion(region)
         .build()
 
-      getString(locale, "service.hello") should be("hello")
+      assertResult(getString(locale, "service.hello"))("hello")
 
     }
 
@@ -28,7 +28,7 @@ class SingleMessageTest extends SingleMessageI18n {
       val region = new String("CL")
       val locale: Locale = new Locale(language, region)
 
-      getString(locale, "service.hello") should be("hola")
+      assertResult(getString(locale, "service.hello"))("hola")
 
     }
 
@@ -42,7 +42,7 @@ class SingleMessageTest extends SingleMessageI18n {
         .setRegion(region)
         .build()
 
-      getString(locale, "service.hello") should be("oi")
+      assertResult(getString(locale, "service.hello"))("oi")
 
     }
 
