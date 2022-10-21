@@ -65,13 +65,14 @@ trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
       resourceBundle =>
         try {
           Option(key) map (
-            key => resourceBundle.getString(key)) getOrElse (key)
+            key => resourceBundle.getString(key) //
+          ) getOrElse (key)
         } catch {
           case e: MissingResourceException =>
-            logger.error(s"getString() - $e")
+            logger.error(s"getString() - ${locale.getLanguage}-${locale.getCountry}/$key, $e")
             key
           case e: Throwable =>
-            logger.error(s"getString() - $e")
+            logger.error(s"getString() - ${locale.getLanguage}-${locale.getCountry}/$key, $e")
             key
         }) getOrElse {
         logger.warn(s"getString() - ooops, something wrong happens")
