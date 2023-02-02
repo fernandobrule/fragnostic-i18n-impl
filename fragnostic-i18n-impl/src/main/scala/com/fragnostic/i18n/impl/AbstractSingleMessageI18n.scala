@@ -12,14 +12,16 @@ trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
 
   private[this] val logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
-  private def getEnvProp(name: String): Option[String] =
+  private def getEnvProp(name: String): Option[String] = {
     Option(System.getenv(name))
+  }
 
-  private def getConf(envConf: String): Either[String, String] =
+  private def getConf(envConf: String): Either[String, String] = {
     getEnvProp(envConf) map (value => Right(value)) getOrElse {
       logger.warn(s"getConf() - value na for envConf:$envConf, remember that envConf is an environment variable which have as a value...")
       Left("get.conf.error")
     }
+  }
 
   def baseDir: String
 
@@ -36,7 +38,7 @@ trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
     Option(ResourceBundle.getBundle(baseName, locale, classLoader))
   }
 
-  def getResourceBundle(localeOpt: Option[Locale]): Option[ResourceBundle] =
+  def getResourceBundle(localeOpt: Option[Locale]): Option[ResourceBundle] = {
     getConf(baseDir) fold (
       error => None,
       baseDir => getConf(baseName) fold (
@@ -53,12 +55,15 @@ trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
 
         } catch {
           case e: MissingResourceException =>
-            logger.error(s"getResourceBundle() - MissingResourceException : $e")
+            logger.warn(s"getResourceBundle() - baseDir[$baseDir], baseName[$baseName], MissingResourceException : $e")
             None
           case e: Throwable =>
-            logger.error(s"getResourceBundle() - Throwable : $e")
+            logger.warn(s"getResourceBundle() - baseDir[$baseDir], baseName[$baseName], Throwable : $e")
             None
-        }))
+        } //
+      ) //
+    )
+  }
 
   def getString(locale: Locale, key: String): String =
     getResourceBundle(Option(locale)) map (
@@ -69,20 +74,18 @@ trait AbstractSingleMessageI18n extends ResourceI18n with StringSupport {
           ) getOrElse (key)
         } catch {
           case e: MissingResourceException =>
-            logger.error(s"getString() - ${locale.getLanguage}-${locale.getCountry}/$key, $e")
+            logger.warn(s"getString() - ${locale.getLanguage}-${locale.getCountry}/$key, $e")
             key
           case e: Throwable =>
-            logger.error(s"getString() - ${locale.getLanguage}-${locale.getCountry}/$key, $e")
+            logger.warn(s"getString() - ${locale.getLanguage}-${locale.getCountry}/$key, $e")
             key
         }) getOrElse {
         logger.warn(s"getString() - ooops, something wrong happens")
         key
       }
 
-  def getFormattedString(
-    locale: Locale,
-    key: String,
-    arguments: List[String]): String =
+  def getFormattedString(locale: Locale, key: String, arguments: List[String]): String = {
     format(getString(locale, key), arguments)
+  }
 
 }
