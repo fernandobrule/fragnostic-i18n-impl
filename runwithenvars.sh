@@ -9,5 +9,4 @@ export TEST_FRAGNOSTIC_SERVICE_I18N_BASE_NAME="com.fragnostic.i18n.fragnostic-se
 export LOCALE_DEFAULT_LANG=pt
 export LOCALE_DEFAULT_RGN=BR
 
-
-./sbt -v -213 -Dsbt.io.implicit.relative.glob.conversion=allow
+./sbt -v -213
