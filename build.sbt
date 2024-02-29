@@ -1,7 +1,7 @@
+import Dependencies.*
 import com.jsuereth.sbtpgp.PgpKeys
-import scala.xml._
-import java.net.URL
-import Dependencies._
+
+import scala.xml.*
 
 val unusedOptions = Seq("-Ywarn-unused:imports")
 
@@ -88,11 +88,11 @@ lazy val fragnosticI18Impl = Project(
   id = "fragnostic-i18n-impl",
   base = file("fragnostic-i18n-impl")).settings(fragnosticI18ImplSettings ++ Seq(
     libraryDependencies ++= Seq(
-      logbackClassic,
-      //slf4jApi,
-      scalatestFunSpec,
       fragnosticI18nApi,
-      fragnosticSupport
+      fragnosticSupport,
+      logbackClassic,
+      scalatestFunSpec,
+      slf4jApi
     ),
     description := "fragnostic i18n impl"
   )
