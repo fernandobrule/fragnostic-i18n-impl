@@ -22,7 +22,7 @@ lazy val fragnosticI18ImplSettings = Seq(
   //logLevel := Level.Error,
   Test / fork := true,
   Test / baseDirectory := (ThisBuild / baseDirectory).value,
-  crossScalaVersions := Seq("2.12.18", "2.13.10", "2.13.11", "2.13.12", "3.3.0"),
+  crossScalaVersions := Seq("2.12.18", "2.13.10", "2.13.11", "2.13.12", "2.13.13", "3.3.0"),
   scalaVersion := crossScalaVersions.value.head,
   Test / testOptions ++= {
     if (scalaBinaryVersion.value == "3") {
